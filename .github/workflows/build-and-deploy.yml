@@ -1,0 +1,95 @@
+name: Deploy SvelteKit & Doc Assets
+
+on:
+  # schedule:
+  #   - cron: '15 3 * * *'
+  push:
+    branches:
+      - main
+      - master  # Good to include both if you're transitioning
+  repository_dispatch:
+    types: [content_updated] # Triggered by OpenClaw or ClawShelf
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    needs: sync_check
+    if: needs.sync_check.outputs.build_needed == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout the SvelteKit project (the current repo)
+      - name: Checkout Pages Repo
+        uses: actions/checkout@v4
+        with:
+          path: pages_repo
+
+      # 2. Checkout the App logic (ClawShelf) to get the tools
+      - name: Checkout App Repo
+        uses: actions/checkout@v4
+        with:
+          repository: GodotDocMobile/Gearence
+          path: app_repo
+
+      # 3. Checkout the Content (OpenClaw)
+      - name: Checkout Content Repo
+        uses: actions/checkout@v4
+        with:
+          repository: godotengine/godot
+          path: godot_repo
+
+      # 4. Setup Node & Build SvelteKit
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+          cache-dependency-path: pages_repo/package-lock.json
+      - name: Install Node Deps
+        run: cd pages_repo && npm install
+
+      # 5. Setup Flutter & Generate Assets
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+          cache-key: flutter-:os:-:channel:-:version:-:arch:-:hash
+          cache-path: ${{ runner.tool_cache }}/flutter
+
+      - name: Build Isar and Bundle
+        run: |
+          cd app_repo
+          flutter pub get
+          # Run tool: reading from ../godot_repo
+          dart run tools/package_document.dart \
+            --godot_path ../godot_repo \
+            --output assets
+
+          # copy dist to ../pages_repo/static/dist-assets
+          mv assets ../pages_repo/static/dist-assets
+
+      # 6. Build SvelteKit (now including the new assets in 'static/')
+      - name: Build SvelteKit
+        run: |
+          cd pages_repo
+          npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'pages_repo/build/'
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
