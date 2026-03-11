@@ -1,8 +1,8 @@
 name: Deploy SvelteKit & Doc Assets
 
 on:
-  # schedule:
-  #   - cron: '15 3 * * *'
+  schedule:
+    - cron: '15 3 * * *'
   push:
     branches:
       - main
