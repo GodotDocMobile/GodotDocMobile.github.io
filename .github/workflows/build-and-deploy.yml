@@ -18,8 +18,6 @@ permissions:
 
 jobs:
   build:
-    needs: sync_check
-    if: needs.sync_check.outputs.build_needed == 'true'
     runs-on: ubuntu-latest
     steps:
       # 1. Checkout the SvelteKit project (the current repo)
