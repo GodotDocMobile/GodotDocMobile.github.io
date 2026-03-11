@@ -61,12 +61,11 @@ jobs:
       - name: Build Isar and Bundle
         run: |
           cd app_repo/tools
-          flutter pub get
-          cd ..
+          flutter pub get && flutter pub -C tools get
           # Run tool: reading from ../godot_repo
           dart run tools/package_document.dart \
             --godot_path ../godot_repo \
-            --output assets
+            --output assets --dist
 
           # copy dist to ../pages_repo/static/dist-assets
           mv assets ../pages_repo/static/dist-assets
