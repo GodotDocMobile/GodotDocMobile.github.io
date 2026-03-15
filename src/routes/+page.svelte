@@ -20,12 +20,12 @@
 		ArrowRightOutline,
 		RectangleListOutline,
 		SearchOutline,
-		BriefcaseSolid,
 		SunOutline,
 		TextSizeOutline,
 		ForwardOutline,
-		CogOutline
+		GlobeOutline
 	} from 'flowbite-svelte-icons';
+	import favicon from '$lib/assets/favicon.svg';
 </script>
 
 <svelte:head>
@@ -34,8 +34,8 @@
 
 <Navbar>
 	<NavBrand href="/">
-		<!-- <img src="/images/flowbite-svelte-icon-logo.svg" class="me-3 h-6 sm:h-9" alt="Flowbite Logo" /> -->
-		<span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Gearence</span
+		<img src={favicon} class="me-3 h-6 sm:h-9" alt="Flowbite Logo" />
+		<span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Gearence</span
 		>
 	</NavBrand>
 	<NavHamburger />
@@ -51,26 +51,23 @@
 	<div class="mr-auto place-self-center lg:col-span-7">
 		<HeroHeader
 			h1Class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white"
-			pClass="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400"
+			pClass="text-left max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400 sm:px-0 lg:px-0 xl:px-0"
 		>
-			<svelte:fragment slot="h1">Third party Godot Class Reference reader.</svelte:fragment>
-			<svelte:fragment slot="paragraph"
-				>Gearence contains class documentation covering version 2.0 to 4.3.</svelte:fragment
-			>
+			{#snippet h1()}
+				The Ultimate Offline Godot Class Reference.
+			{/snippet}
+			{#snippet paragraph()}High-performance documentation for every major Godot version, right in
+				your pocket. Covering version 2.0 to 4.6.
+			{/snippet}
 			<a href="#download"
 				><Button size="xl" class="mr-3 inline-flex items-center justify-center"
 					>Download<ArrowRightOutline size="md" class="-mr-1 ml-2" /></Button
 				>
 			</a>
-			<!-- <a href="/"
-				><Button color="light" size="xl" class="inline-flex items-center justify-center"
-					>Speak to Sales</Button
-				>
-			</a> -->
 		</HeroHeader>
 	</div>
 	<div class="hidden lg:col-span-5 lg:mt-0 lg:flex">
-		<img src="/logo-icon.svg" alt="mockup" />
+		<img src={favicon} alt="mockup" />
 	</div>
 </Section>
 
@@ -90,71 +87,86 @@
 <Section name="feature">
 	<div id="feature">
 		<HeroHeader
-			class="mb-8 max-w-screen-md lg:mb-16"
-			h2Class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white"
-			pClass="text-gray-500 sm:text-xl dark:text-gray-400"
+			class="mb-8 max-w-3xl lg:mb-16"
+			h2Class="mb-4 lg:mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white text-left"
+			pClass="text-gray-500 sm:text-xl dark:text-gray-400 text-left sm:px-0 xl:px-0"
 		>
-			<svelte:fragment slot="h2">Gearence</svelte:fragment>
-			<svelte:fragment slot="paragraph"
-				>Embark on your journey through the world of Godot Engine with unparalleled convenience.</svelte:fragment
-			>
+			{#snippet h2()}Fast. Offline. Version-Versatile{/snippet}
+			{#snippet paragraph()}Access the complete Godot Class Reference anywhere. Featuring instant
+				search, native system theming, and localized content for a distraction-free coding
+				experience.{/snippet}
 		</HeroHeader>
+
 		<FeatureDefault>
 			<FeatureItem>
-				<svelte:fragment slot="icon"
-					><RectangleListOutline class="text-primary-600 dark:text-primary-300" /></svelte:fragment
-				>
-				<svelte:fragment slot="h3">Multiple Versions.</svelte:fragment>
-				<svelte:fragment slot="paragraph"
-					>Comprehensive documentation for multiple Godot versions.</svelte:fragment
-				>
+				{#snippet icon()}
+					<RectangleListOutline class="text-primary-600 dark:text-primary-300" />
+				{/snippet}
+				{#snippet h3()}
+					Multiple Versions.
+				{/snippet}
+				{#snippet paragraph()}
+					Comprehensive documentation support for Godot 2.0 through the latest 4.x releases.
+				{/snippet}
 			</FeatureItem>
 			<FeatureItem>
-				<svelte:fragment slot="icon"
-					><SearchOutline class="text-primary-600 dark:text-primary-300" /></svelte:fragment
-				>
-				<svelte:fragment slot="h3">In-app Search</svelte:fragment>
-				<svelte:fragment slot="paragraph"
-					>Effortless navigation with in-app search functionality.</svelte:fragment
-				>
+				{#snippet icon()}
+					<SearchOutline class="text-primary-600 dark:text-primary-300" />
+				{/snippet}
+				{#snippet h3()}
+					Instant Search
+				{/snippet}
+				{#snippet paragraph()}
+					Effortless navigation with optimized in-app search functionality.
+				{/snippet}
 			</FeatureItem>
 			<FeatureItem>
-				<svelte:fragment slot="icon"
-					><ForwardOutline class="text-primary-600 dark:text-primary-300" /></svelte:fragment
-				>
-				<svelte:fragment slot="h3">In-app Redirection</svelte:fragment>
-				<svelte:fragment slot="paragraph"
-					>Seamlessly switch between classes, functions, signals, and properties with in-app
-					redirection.</svelte:fragment
-				>
+				{#snippet icon()}
+					<ForwardOutline class="text-primary-600 dark:text-primary-300" />
+				{/snippet}
+				{#snippet h3()}
+					In-app Redirection
+				{/snippet}
+				{#snippet paragraph()}
+					Seamlessly jump between classes, functions, signals, and properties with intuitive
+					deep-linking.
+				{/snippet}
 			</FeatureItem>
 			<FeatureItem>
-				<svelte:fragment slot="icon"
-					><SunOutline class="text-primary-600 dark:text-primary-300" /></svelte:fragment
-				>
-				<svelte:fragment slot="h3">Dark Mode</svelte:fragment>
-				<svelte:fragment slot="paragraph">Enjoy comfortable reading with Dark Mode.</svelte:fragment
-				>
+				{#snippet icon()}
+					<SunOutline class="text-primary-600 dark:text-primary-300" />
+				{/snippet}
+				{#snippet h3()}
+					Native Dark Mode
+				{/snippet}
+				{#snippet paragraph()}
+					Enjoy a comfortable reading experience with a UI that adapts instantly to your system
+					theme.
+				{/snippet}
 			</FeatureItem>
 			<FeatureItem>
-				<svelte:fragment slot="icon"
-					><TextSizeOutline class="text-primary-600 dark:text-primary-300" /></svelte:fragment
-				>
-				<svelte:fragment slot="h3">Adjustable text size</svelte:fragment>
-				<svelte:fragment slot="paragraph"
-					>Customize your reading experience with adjustable text size.</svelte:fragment
-				>
+				{#snippet icon()}
+					<TextSizeOutline class="text-primary-600 dark:text-primary-300" />
+				{/snippet}
+				{#snippet h3()}
+					Adjustable Typography
+				{/snippet}
+				{#snippet paragraph()}
+					Customize your reading experience with adjustable text sizes and high-quality mono fonts.
+				{/snippet}
 			</FeatureItem>
-			<!-- <FeatureItem>
-				<svelte:fragment slot="icon"
-					><CogOutline class="text-primary-600 dark:text-primary-300" /></svelte:fragment
-				>
-				<svelte:fragment slot="h3">Operations</svelte:fragment>
-				<svelte:fragment slot="paragraph"
-					>Keep your company’s lights on with customizable, iterative, and structured workflows
-					built for all efficient teams and individual.</svelte:fragment
-				>
-			</FeatureItem> -->
+			<FeatureItem>
+				{#snippet icon()}
+					<GlobeOutline class="text-primary-600 dark:text-primary-300" />
+				{/snippet}
+				{#snippet h3()}
+					Offline First
+				{/snippet}
+				{#snippet paragraph()}
+					All data is stored locally in a high-performance database, ensuring documentation is
+					available whenever you are.
+				{/snippet}
+			</FeatureItem>
 		</FeatureDefault>
 	</div>
 </Section>
@@ -179,19 +191,15 @@
 	</div>
 </Section>
 
-<Section>
-	<Footer>
-		<div class="sm:flex sm:items-center sm:justify-between">
-			<FooterCopyright href="/" by="Gearence" year={2024} />
-			<FooterLinkGroup
-				ulClass="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0"
-			>
-				<!-- <FooterLink href="/">About</FooterLink> -->
-				<FooterLink href="#privacy_policy">Privacy Policy</FooterLink>
-				<FooterLink href="https://github.com/GodotDocMobile/godot_class_reference"
-					>Source Code</FooterLink
-				>
-			</FooterLinkGroup>
-		</div>
-	</Footer>
-</Section>
+<Footer>
+	<FooterCopyright href="/" by="Gearence" year={2026} />
+	<FooterLinkGroup
+		class="mt-3 flex flex-wrap items-center text-sm text-gray-500 sm:mt-0 dark:text-gray-400"
+	>
+		<FooterLink href="#privacy_policy">Privacy Policy</FooterLink>
+
+		<FooterLink href="https://github.com/GodotDocMobile/godot_class_reference"
+			>Source Code</FooterLink
+		>
+	</FooterLinkGroup>
+</Footer>
